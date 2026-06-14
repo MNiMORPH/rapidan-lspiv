@@ -1,0 +1,562 @@
+[
+  {
+    "clip": "MAX_0321",
+    "date": "2025_06Jun24",
+    "suitable": true,
+    "camera_motion": "stationary",
+    "notes": "BEST CANDIDATE. Near-nadir hover over breach channel, Jun 2025. Full frame is water surface with excellent turbulent eddy/boil texture — fast, coherent patterns that should cross-correlate well. Soft overcast light, no glare. Early, mid, and late frames essentially identical. Right edge shows exposed rock ledge (maskable). 11 s clip."
+  },
+  {
+    "clip": "MAX_0322",
+    "date": "2025_06Jun24",
+    "suitable": true,
+    "camera_motion": "stationary",
+    "notes": "BEST CANDIDATE. Identical flight session to MAX_0321, slightly shifted position. Same near-nadir hover with excellent eddy/boil texture across full frame. Slightly more white water at center than MAX_0321 but still good coverage of trackable surface. Stationary throughout. 11 s clip."
+  },
+  {
+    "clip": "DJI_0024",
+    "date": "2025_05May15",
+    "suitable": true,
+    "camera_motion": "stationary",
+    "notes": "Near-nadir hover, May 2025. Left side is cascade/white water (not usable); right side shows large coherent eddy pool with excellent circular surface texture. Drone shadow visible. Mask out cascade zone and use pool area. Longest of the May 2025 cascade clips at 21 s. Stationary throughout."
+  },
+  {
+    "clip": "DJI_0023",
+    "date": "2025_05May15",
+    "suitable": true,
+    "camera_motion": "stationary",
+    "notes": "Near-nadir hover, May 2025. Same cascade+pool scene as DJI_0022/0024. Clear large eddy vortex visible in the pool (right side). Mask cascade. Stationary throughout. 11 s."
+  },
+  {
+    "clip": "DJI_0022",
+    "date": "2025_05May15",
+    "suitable": true,
+    "camera_motion": "stationary",
+    "notes": "Near-nadir hover, May 2025. Same breach cascade+pool scene. Calmer pool area to the right shows ripple/eddy texture suitable for cross-correlation. White water on left is ~40% of frame (maskable). Stationary. 12 s."
+  },
+  {
+    "clip": "MAX_0178",
+    "date": "2025_03Mar03",
+    "suitable": false,
+    "camera_motion": "stationary",
+    "notes": "Near-nadir, stationary hover. Winter/early spring — exposed rock and ice on banks, very narrow low-flow channel. The water channel visible on right side is calmer but small. Some white water at breach point. Camera angle and stability are good but water coverage is too limited and winter ice conditions complicate georeferencing."
+  },
+  {
+    "clip": "MAX_0177",
+    "date": "2025_03Mar03",
+    "suitable": false,
+    "camera_motion": "stationary",
+    "notes": "Near-nadir, stationary hover. Same winter scene as MAX_0178 — ice/frost on exposed rock, narrow low-flow channel. Identical assessment: geometry good but insufficient water coverage and winter conditions."
+  },
+  {
+    "clip": "MAX_0102",
+    "date": "2024_11Nov15",
+    "suitable": false,
+    "camera_motion": "stationary",
+    "notes": "Already loaded in pipeline. Near-nadir, stationary. Shows the breach spillway waterfall — almost entirely white water cascade. Plunge pool at bottom of frame has some calmer water but very small area. Only 2 s long. Not suitable for LSPIV cross-correlation due to white water. Kept in pipeline as test clip."
+  },
+  {
+    "clip": "MAX_0101",
+    "date": "2024_11Nov15",
+    "suitable": false,
+    "camera_motion": "stationary",
+    "notes": "Near-nadir, stationary hover. 28 s of the breach waterfall/spillway — cascade occupies most of frame, all white water. Narrow plunge pool visible at bottom with some calmer water but insufficient area for PIV. Same scene as MAX_0102 but longer."
+  },
+  {
+    "clip": "MAX_0015",
+    "date": "2024_08Aug06",
+    "suitable": true,
+    "camera_motion": "minor",
+    "notes": "PROMOTE (2024 Aug coverage). Near-nadir hover over breach cascade + plunge pool, Aug 6 — lower flow than Jun/Jul so smaller cascade, larger calmer pool area. Early and late frames show same scene with only minor drift. Pool (lower portion of frame) shows calmer turbid water with some eddy texture — similar geometry to the May 2025 DJI_0022-0024 clips. Some fisheye distortion from action camera; will need to account for in georeferencing. Mask the cascade zone, use pool."
+  },
+  {
+    "clip": "MAX_0007",
+    "date": "2024_08Aug06",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Action camera. Oblique view of dam remnants and breach area, Aug 2024. Some turbulence. Minor camera drift. Not suitable — oblique angle, fisheye distortion."
+  },
+  {
+    "clip": "DJI_0672_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": true,
+    "camera_motion": "stationary",
+    "notes": "PROMOTE (2024 Jun 30 receding-flood coverage). Near-nadir hover, 79 s, CONFIRMED STATIONARY — early and late nearly identical. Frame dominated by dam structure and exposed rock, but the upstream-reach water (upper-left quadrant) shows calmer turbid water with surface boils/texture. This is the only high-flow Jun 30 clip with a stationary near-nadir camera. Use upstream quadrant only; mask dam structure and breach turbulence."
+  },
+  {
+    "clip": "DJI_0656_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "High oblique, Jun 30. Water level receding. Shows bridge, dam remnants, and new river channel from above. Upstream calmer water visible but oblique angle too steep for LSPIV. Minor camera drift between early and late."
+  },
+  {
+    "clip": "DJI_0660_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Low oblique, Jun 30. Close-up of dam plunge pool with turbulent water. White water in most of frame. Not suitable."
+  },
+  {
+    "clip": "DJI_0666_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique view of dam/breach, Jun 30. Panning. Not suitable."
+  },
+  {
+    "clip": "DJI_0650_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "High oblique overview, Jun 30. Shows bridge+dam area with receding water. Panning/orbiting. Not suitable."
+  },
+  {
+    "clip": "DJI_0662_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Near-nadir but over the destroyed townsite/former backwater — mostly exposed sediment, debris field. Not over water. Significant camera movement between frames."
+  },
+  {
+    "clip": "DJI_0657_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30, panning. Not suitable."
+  },
+  {
+    "clip": "DJI_0658_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "PROMOTE (2024 Jun 30 receding-flood coverage — trimmed). Full clip has significant motion: starts oblique, transitions to near-nadir around 7 s, then pulls back to high oblique. Middle segment (~7–20 s) is near-nadir over the breach plunge pool/gorge with some calmer water visible. Trimmed near-nadir segment extracted to data/raw/DJI_0658_RAPIDAN_nadir.MP4 (156 MB). Use only that file."
+  },
+  {
+    "clip": "DJI_0659_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0661_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0663_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0664_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0665_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0667_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0668_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0669_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0670_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0671_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0673_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0674_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Not suitable."
+  },
+  {
+    "clip": "DJI_0690_RAPIDAN",
+    "date": "2024_06Jun30",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 30. Shows bridge+dam from downstream. Significant camera motion. Not suitable."
+  },
+  {
+    "clip": "DJI_0592_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Cinematic documentation. Not suitable."
+  },
+  {
+    "clip": "DJI_0589_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Not suitable."
+  },
+  {
+    "clip": "DJI_0590_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Shows eroded bank, oblique angle. Not suitable."
+  },
+  {
+    "clip": "DJI_0593_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Not suitable."
+  },
+  {
+    "clip": "DJI_0604_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Not suitable."
+  },
+  {
+    "clip": "DJI_0584_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "High oblique overview, Jun 28. Shows full dam+breach scene. Camera moving/orbiting. Not suitable."
+  },
+  {
+    "clip": "DJI_0585_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Not suitable."
+  },
+  {
+    "clip": "DJI_0586_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": true,
+    "camera_motion": "significant",
+    "notes": "PROMOTE (2024 Jun 28 high-flow coverage — trimmed). Full clip has significant motion: starts near-nadir then pulls to oblique. First ~8 s is near-nadir over the dam/upstream area with calmer turbid water visible. Trimmed near-nadir segment extracted to data/raw/DJI_0586_RAPIDAN_nadir.MP4 (89 MB). Use only that file."
+  },
+  {
+    "clip": "DJI_0587_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Not suitable."
+  },
+  {
+    "clip": "DJI_0588_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Not suitable."
+  },
+  {
+    "clip": "DJI_0591_RAPIDAN",
+    "date": "2024_06Jun28",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Oblique, Jun 28. Not suitable."
+  },
+  {
+    "clip": "DJI_0545_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Jun 27. Oblique hover looking downstream at dam plunge pool. White water/turbulent water fills the frame. Camera appears stationary/minor drift but the scene is all turbulent white water — not suitable for LSPIV."
+  },
+  {
+    "clip": "DJI_0546_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. Oblique, panning/orbiting dam breach area. Not suitable."
+  },
+  {
+    "clip": "DJI_0547_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. Oblique, panning from dam to eroded bank to open plunge pool. Significantly different compositions early vs late. Not suitable."
+  },
+  {
+    "clip": "DJI_0553_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. High oblique overview of dam+breach scene. Panning. Not suitable."
+  },
+  {
+    "clip": "DJI_0554_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. Very low oblique — nearly at dam walkway level looking along the dam crest. Unusual angle. Moving. Not suitable."
+  },
+  {
+    "clip": "DJI_0555_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. Oblique view of the eroded right bank. Panning. Not suitable."
+  },
+  {
+    "clip": "DJI_0576_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. Oblique, looking at dam from upstream side. Panning. Not suitable."
+  },
+  {
+    "clip": "DJI_0577_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. Oblique view of dam/breach from downstream. Turbulent water, white spray. Panning. Not suitable."
+  },
+  {
+    "clip": "DJI_0500_RAPIDAN",
+    "date": "2024_06Jun25",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 25. Oblique cinematic shot of dam failure at peak flood. Significant camera movement — very different compositions across the 62s clip. Turbulent/white water throughout. Not suitable."
+  },
+  {
+    "clip": "DJI_0501_RAPIDAN",
+    "date": "2024_06Jun25",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 25. Oblique orbit around breach/dam. Significant motion. All turbulent white water. Not suitable."
+  },
+  {
+    "clip": "DJI_0502_RAPIDAN",
+    "date": "2024_06Jun25",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 25. Oblique of dam with spillway cascade, massive spray. Moving. Not suitable."
+  },
+  {
+    "clip": "DJI_0508_RAPIDAN",
+    "date": "2024_06Jun25",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Jun 25. High oblique wide-area hover — shows entire river system with bridge, dam, and surrounding landscape. Camera relatively stationary (minor drift). Upstream water appears calmer/turbid but angle far too oblique for LSPIV."
+  },
+  {
+    "clip": "DJI_0509_RAPIDAN",
+    "date": "2024_06Jun25",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Jun 25. Low oblique hover near bridge level — shows the bridge crossing with dark turbid water below and dam/debris beyond. Camera hovering with minor drift. Angle is oblique (~30-40° from nadir). Water visible is relatively smooth but viewing angle precludes LSPIV."
+  },
+  {
+    "clip": "DJI_0346_RAPIDAN",
+    "date": "2024_06Jun23",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Jun 23 (day of failure). Low oblique hover at bridge level. Shows the bridge with debris pile at pier and the flooded river. Calm turbid water visible in foreground. Camera drifts slightly — early and late show same general composition. Scene is too oblique for LSPIV despite relatively calm water surface."
+  },
+  {
+    "clip": "DJI_0347_RAPIDAN",
+    "date": "2024_06Jun23",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 23 (longest Jun 23 clip at 177s). Starts nearly nadir over dam spillway (white water) then transitions to oblique overview of dam+breach. Significant motion throughout. Not suitable."
+  },
+  {
+    "clip": "DJI_0144_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. High oblique overview of dam/breach with sand bar exposed and river in new channel. Camera moving/orbiting — different compositions between early and late. Not suitable."
+  },
+  {
+    "clip": "DJI_0113_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. High oblique wide-area shot showing dam, both bridges, and surrounding landscape. Orbiting. Not suitable."
+  },
+  {
+    "clip": "DJI_0145_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. Oblique, dam/sand bar scene. Not suitable."
+  },
+  {
+    "clip": "DJI_0146_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. High oblique wide overview. Not suitable."
+  },
+  {
+    "clip": "DJI_0157_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. Oblique. Not suitable."
+  },
+  {
+    "clip": "DJI_0283_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. Oblique. Not suitable."
+  },
+  {
+    "clip": "DJI_0288_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Jul 19. Only 4 s. Too short to assess reliably. Oblique view of dam area."
+  },
+  {
+    "clip": "DJI_0289_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. Oblique. Not suitable."
+  },
+  {
+    "clip": "DJI_0290_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. Oblique. Not suitable."
+  },
+  {
+    "clip": "DJI_0291_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. Oblique. Not suitable."
+  },
+  {
+    "clip": "DJI_0292_RAPIDAN",
+    "date": "2024_07Jul19",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 19. Oblique. Not suitable."
+  },
+  {
+    "clip": "DJI_0799_RAPIDAN",
+    "date": "2024_07Jul03",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 3. Oblique view of dam area with large sand bar now exposed and river channelized around it. Orbiting. Not suitable."
+  },
+  {
+    "clip": "DJI_0853_RAPIDAN",
+    "date": "2024_07Jul09",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 9. Oblique, dam/plunge pool with some turbulence. Moving. Not suitable."
+  },
+  {
+    "clip": "DJI_0860_RAPIDAN",
+    "date": "2024_07Jul09",
+    "suitable": true,
+    "camera_motion": "significant",
+    "notes": "PROMOTE (2024 Jul 9 moderate-high flow coverage). Clip starts oblique/distant and descends to near-nadir over the cascade+pool — significant motion through most of the 18s clip. However, the late portion (final ~8-10 s) reaches a near-nadir hover over the pool with similar geometry to the May 2025 DJI_0022-0024 clips. Pool area in late frames shows calmer water with eddy texture. Stabilization required; use only the late-clip stationary segment."
+  },
+  {
+    "clip": "MAX_0077",
+    "date": "2024_07Jul03",
+    "suitable": false,
+    "camera_motion": "minor",
+    "notes": "Jul 3. Action camera (fisheye distortion). Oblique view of dam/breach area with large sand bar. River visible around bar. Not suitable — fisheye distortion and oblique angle."
+  },
+  {
+    "clip": "MAX_0094",
+    "date": "2024_07Jul03",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 3. Action camera. Oblique. Not suitable."
+  },
+  {
+    "clip": "MAX_0095",
+    "date": "2024_07Jul03",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jul 3. Action camera. Only 2 s — too short to assess motion or suitability."
+  },
+  {
+    "clip": "DJI_0345_RAPIDAN-002",
+    "date": "loose",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Long cinematic clip (323s). Camera moves through multiple very different positions: near-nadir over bridge/flooded river (early), oblique of dam spillway with spray (mid), oblique downstream (late). Significant motion throughout despite some near-nadir moments early in clip. Not suitable as-is; the early nadir section over the upstream river might have calm surface but camera position changes quickly."
+  },
+  {
+    "clip": "DJI_0681-004",
+    "date": "loose",
+    "suitable": false,
+    "camera_motion": "excessive",
+    "notes": "169s cinematic flight. Early shows the breach from high oblique, mid shows dam from the side, late shows road/construction equipment with no water in frame. Camera travels through completely different scenes. Excessive motion. Not suitable."
+  },
+  {
+    "clip": "rapidan dam chopper__f4bee64f-679b-495e-8b21-4a5f13ebd5f6",
+    "date": "unknown",
+    "suitable": false,
+    "camera_motion": "excessive",
+    "notes": "TV/news helicopter footage (appears to be broadcast quality, lower resolution, 489s). Oblique, camera moving throughout. Shows dam failure scene from a circling helicopter. Not suitable."
+  },
+  {
+    "clip": "DJI_0577_RAPIDAN",
+    "date": "2024_06Jun27",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Jun 27. Short clip (34s). Oblique overview of dam/breach from downstream. Camera panning. Not suitable."
+  },
+  {
+    "clip": "DJI_0011",
+    "date": "2024_09Sep25",
+    "suitable": false,
+    "camera_motion": "significant",
+    "notes": "Sep 25. Only 1 s — far too short to assess. Oblique view of dam area."
+  }
+]
