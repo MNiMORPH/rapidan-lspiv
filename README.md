@@ -104,6 +104,48 @@ high CV; flowing water has bounded temporal variation relative to its mean speed
 The DSM elevation filter remains available as a secondary mask (see config `dsm` / `water_elev_m`)
 but is not needed at this site.
 
+### SIFT georeferencing: single-orthophoto limitation — processing on hold
+
+**Only MAX_0102 (November 2024) can be georeferenced with the current orthophoto.**
+
+SIFT feature matching succeeded for MAX_0102 (177 RANSAC inliers) and failed for
+every other clip (4–9 inliers, producing degenerate homographies):
+
+| Clip | Camera | Date | Flow | SIFT inliers | Result |
+|---|---|---|---|---|---|
+| MAX_0102 | Insta360 MAX | 2024-11-15 | Base/low | 177 | ✓ Good |
+| MAX_0015_nadir | Insta360 MAX | 2024-08-06 | Moderate | 9 | ✗ Degenerate |
+| MAX_0321 | Insta360 MAX | 2025-06-24 | Elevated | 5–6 | ✗ Degenerate |
+| MAX_0322 | Insta360 MAX | 2025-06-24 | Elevated | 5–6 | ✗ Degenerate |
+| DJI_0022 | DJI | 2025-05-15 | Elevated | 4 | ✗ Degenerate |
+| DJI_0023 | DJI | 2025-05-15 | Elevated | 4 | ✗ Degenerate |
+| DJI_0024 | DJI | 2025-05-15 | Elevated | 4 | ✗ Degenerate |
+| DJI_0586_RAPIDAN_nadir | DJI | 2024-06-28 | Very high | 5 | ✗ Degenerate |
+
+**Root cause:** The orthophoto was acquired in approximately November 2024 at low/base
+flow — the same conditions as MAX_0102. For every other clip:
+- *Different water levels* cover the exposed rock textures SIFT needs for matching.
+- *Different cameras* (DJI vs. Insta360 MAX) have lower resolution (~2 MP vs. ~8 MP)
+  and different lens characteristics, reducing the quality and number of matched keypoints.
+- *Pre-failure clips* (June–July 2024) show the dam structure and high water — a scene
+  the post-failure, low-flow orthophoto cannot match at all.
+
+**What is needed to proceed:**
+1. **Additional orthophotos** from Zach, one per distinct flow condition or acquisition
+   date — or at minimum one pre-failure and one mid-high-flow post-failure.
+2. **Manual GCPs** on stable features visible in both the orthophoto and each video
+   (rock ledge edges, concrete remnants, utility poles). This is labor-intensive but
+   does not require new flights.
+3. **Drone GPS/IMU direct georeferencing** — DJI flight logs contain GPS position and
+   barometric altitude; with known camera parameters this can replace SIFT for nadir
+   shots.
+
+Processing is on hold pending one of these. All degenerate camera configs and failed
+result directories have been removed. The pipeline code and Snakemake workflow remain
+ready to process new clips once georeferencing is resolved.
+
+---
+
 ### MAX_0321 and MAX_0322 (June 2025): georeferencing failure
 
 These clips were the top-ranked candidates in the inventory assessment based on surface texture
@@ -126,6 +168,18 @@ once the scene width is measured).
 right-hand side of the MAX_0102 domain. The viewer notes "I am not sure if there is enough
 information here to analyze it correctly" even with manual GCPs.
 
+### MAX_0015_nadir (August 2024): georeferencing failure
+
+Similar failure to MAX_0321/0322. Despite being a near-nadir clip with rock visible on multiple
+sides of the breach channel, SIFT matched only 9 RANSAC inliers against the orthophoto. The
+resulting homography produced a degenerate projected frame (disconnected fragments, implausible
+geometry, 13/60 PIV cells retained after the noisiness mask). Results discarded.
+
+The August 2024 scene appears water-dominated enough that the rock textures visible to the human
+eye are insufficient for reliable SIFT matching. The orthophoto (likely acquired at even lower
+flow) shows the site in a different state. Pending manual GCPs or a site measurement date closer
+to the orthophoto acquisition.
+
 ### High-flow clips from June–July 2024
 
 Clips DJI_0586, DJI_0658, DJI_0672, DJI_0860 were acquired 5–47 days after the dam failure
@@ -136,6 +190,14 @@ struggle because the high-water scene masks the ground-surface features that the
 These clips are processed on a best-effort basis; the `georeference_debug.png` output should be
 inspected before accepting results. If inlier count is low (<20), results should not be used
 without manual GCP verification.
+
+### Memory management for long clips
+
+The frame normalization step (temporal mean subtraction) loads all frames as float32 arrays —
+~32 MB per frame at 3836×2102 px. For a 20-second clip (~600 frames) this would require ~20 GB,
+exceeding available RAM. The pipeline processes videos in 50-frame chunks to keep peak RAM at
+~1.6 GB regardless of clip length. Per-chunk normalization is equivalent to global normalization
+for a stationary camera with stable illumination.
 
 ### Paired output figures and fixed layout
 
@@ -169,22 +231,21 @@ for the velocity field.
 
 Clips selected for LSPIV span the full post-failure hydrograph:
 
-| Clip | Date | Flow regime |
-|---|---|---|
-| DJI_0586_RAPIDAN_nadir | 2024-06-28 | Very high — ~5 days post-failure |
-| DJI_0658_RAPIDAN_nadir | 2024-06-30 | High / actively receding |
-| DJI_0672_RAPIDAN_nadir | 2024-06-30 | High / actively receding (79 s, stationary) |
-| DJI_0860_RAPIDAN_nadir | 2024-07-09 | Moderate-high |
-| MAX_0015_nadir | 2024-08-06 | Moderate / low |
-| MAX_0102 | 2024-11-15 | Base flow |
-| DJI_0022 | 2025-05-15 | Elevated (spring) |
-| DJI_0023 | 2025-05-15 | Elevated (spring) |
-| DJI_0024 | 2025-05-15 | Elevated (spring) |
-| MAX_0321 | 2025-06-24 | Elevated | Skipped — georeferencing failure (see Processing notes) |
-| MAX_0322 | 2025-06-24 | Elevated | Skipped — georeferencing failure (see Processing notes) |
+| Clip | Date | Flow regime | Status |
+|---|---|---|---|
+| DJI_0586_RAPIDAN_nadir | 2024-06-28 | Very high — ~5 days post-failure | On hold — georeferencing failure |
+| DJI_0658_RAPIDAN_nadir | 2024-06-30 | High / actively receding | On hold — georeferencing failure |
+| DJI_0672_RAPIDAN_nadir | 2024-06-30 | High / actively receding (79 s, stationary) | On hold — georeferencing failure |
+| DJI_0860_RAPIDAN_nadir | 2024-07-09 | Moderate-high | On hold — georeferencing failure |
+| MAX_0015_nadir | 2024-08-06 | Moderate / low | On hold — georeferencing failure |
+| MAX_0102 | 2024-11-15 | Base flow | **Processed** |
+| DJI_0022 | 2025-05-15 | Elevated (spring) | On hold — georeferencing failure |
+| DJI_0023 | 2025-05-15 | Elevated (spring) | On hold — georeferencing failure |
+| DJI_0024 | 2025-05-15 | Elevated (spring) | On hold — georeferencing failure |
+| MAX_0321 | 2025-06-24 | Elevated | On hold — georeferencing failure |
+| MAX_0322 | 2025-06-24 | Elevated | On hold — georeferencing failure |
 
-Clips from 2025-05-15 include both a cascade and calmer pool; the cascade zone
-is masked and only the pool is used for velocity retrieval.
+See Processing notes → "SIFT georeferencing: single-orthophoto limitation" for full diagnosis.
 
 ---
 
