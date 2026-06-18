@@ -73,11 +73,14 @@ position across all outputs — enabling direct toggle-comparison in an image vi
 
 ### Processed clips
 
-| Clip | Date | Flow condition | Notes |
-|---|---|---|---|
-| [MAX_0102](results/MAX_0102/) | 2024-11-15 | Low / base flow | Test clip (2 s); breach spillway cascade |
-
-*Additional clips will be added as processing continues.*
+| Clip | Date | Flow condition | Velocity points | Notes |
+|---|---|---|---|---|
+| [MAX_0102](results/MAX_0102/) | 2024-11-15 | Low / base flow | 1,727 | Breach spillway cascade |
+| [MAX_0015_nadir](results/MAX_0015_nadir/) | 2024-08-06 | Moderate | 11,672 | Near-nadir hover; strong coherent flow |
+| [DJI_0022](results/DJI_0022/) | 2025-05-14 | Elevated (spring) | 8,021 | DJI nadir; broad flow domain |
+| [DJI_0023](results/DJI_0023/) | 2025-05-14 | Elevated (spring) | 6,295 | DJI nadir; companion clip to DJI_0022 |
+| [MAX_0177](results/MAX_0177/) | 2025-03-03 | High / flood | 1,768 | March 2025 flood event |
+| [MAX_0178](results/MAX_0178/) | 2025-03-03 | High / flood | 1,716 | March 2025 flood event; companion clip |
 
 ---
 
@@ -104,92 +107,102 @@ high CV; flowing water has bounded temporal variation relative to its mean speed
 The DSM elevation filter remains available as a secondary mask (see config `dsm` / `water_elev_m`)
 but is not needed at this site.
 
-### SIFT georeferencing: single-orthophoto limitation — processing on hold
+### Condition-matched orthomosaics: unlocking SIFT for additional clips
 
-**Only MAX_0102 (November 2024) can be georeferenced with the current orthophoto.**
+The original SIFT georeferencing attempt (against a single November 2024 low-flow
+orthophoto) succeeded only for MAX_0102 and failed for every other clip. The root
+cause was a scene-composition mismatch: at higher flow stages, exposed rock and sediment
+are submerged, and the video frame and orthophoto show the site in visually incompatible
+states — too few stable correspondences for reliable feature matching.
 
-SIFT feature matching succeeded for MAX_0102 (177 RANSAC inliers) and failed for
-every other clip (4–9 inliers, producing degenerate homographies):
+**Resolution (June 2026):** Zach Hilgendorf (MSU Mankato) generated SfM orthomosaics
+from the drone video itself, one per distinct acquisition event. Each orthomosaic
+captures the site at the *same* flow condition as the video clip, providing the shared
+visual features that SIFT requires. This unlocked georeferencing for five additional clips.
 
-| Clip | Camera | Date | Flow | SIFT inliers | Result |
-|---|---|---|---|---|---|
-| MAX_0102 | Insta360 MAX | 2024-11-15 | Base/low | 177 | ✓ Good |
-| MAX_0015_nadir | Insta360 MAX | 2024-08-06 | Moderate | 9 | ✗ Degenerate |
-| MAX_0321 | Insta360 MAX | 2025-06-24 | Elevated | 5–6 | ✗ Degenerate |
-| MAX_0322 | Insta360 MAX | 2025-06-24 | Elevated | 5–6 | ✗ Degenerate |
-| DJI_0022 | DJI | 2025-05-15 | Elevated | 4 | ✗ Degenerate |
-| DJI_0023 | DJI | 2025-05-15 | Elevated | 4 | ✗ Degenerate |
-| DJI_0024 | DJI | 2025-05-15 | Elevated | 4 | ✗ Degenerate |
-| DJI_0586_RAPIDAN_nadir | DJI | 2024-06-28 | Very high | 5 | ✗ Degenerate |
+The pipeline now supports per-clip orthophoto overrides via `config.yaml`:
 
-**Root cause:** The orthophoto was acquired in approximately November 2024 at low/base
-flow — the same conditions as MAX_0102. For every other clip:
-- *Different water levels* cover the exposed rock textures SIFT needs for matching.
-- *Different cameras* (DJI vs. Insta360 MAX) have lower resolution (~2 MP vs. ~8 MP)
-  and different lens characteristics, reducing the quality and number of matched keypoints.
-- *Pre-failure clips* (June–July 2024) show the dam structure and high water — a scene
-  the post-failure, low-flow orthophoto cannot match at all.
+```yaml
+orthophotos:
+  MAX_0015_nadir: data/orthophotos/2024_08Aug06.tif
+  DJI_0022: data/orthophotos/2025_05May14.tif
+  ...
+```
 
-**What is needed to proceed:**
-1. **Additional orthophotos** from Zach, one per distinct flow condition or acquisition
-   date — or at minimum one pre-failure and one mid-high-flow post-failure.
-2. **Manual GCPs** on stable features visible in both the orthophoto and each video
-   (rock ledge edges, concrete remnants, utility poles). This is labor-intensive but
-   does not require new flights.
-3. **Drone GPS/IMU direct georeferencing** — DJI flight logs contain GPS position and
-   barometric altitude; with known camera parameters this can replace SIFT for nadir
-   shots.
+Clips not listed fall back to the global `orthophoto:` entry.
 
-Processing is on hold pending one of these. All degenerate camera configs and failed
-result directories have been removed. The pipeline code and Snakemake workflow remain
-ready to process new clips once georeferencing is resolved.
+### SIFT georeferencing outcomes
+
+| Clip | Date | SIFT orthophoto used | Outcome |
+|---|---|---|---|
+| MAX_0102 | 2024-11-15 | Global (2024-11 low flow) | ✓ Processed (177 inliers) |
+| MAX_0015_nadir | 2024-08-06 | 2024_08Aug06 (condition-matched) | ✓ Processed |
+| DJI_0022 | 2025-05-14 | 2025_05May14 (condition-matched) | ✓ Processed |
+| DJI_0023 | 2025-05-14 | 2025_05May14 (condition-matched) | ✓ Processed |
+| MAX_0177 | 2025-03-03 | 2025_03Mar03 (condition-matched) | ✓ Processed |
+| MAX_0178 | 2025-03-03 | 2025_03Mar03 (condition-matched) | ✓ Processed |
+| MAX_0094 | 2024-07-03 | 2024_07Jul03 (condition-matched) | ✗ 8 RANSAC inliers — see below |
+| DJI_0024 | 2025-05-14 | 2025_05May14 (condition-matched) | ✗ Near-failure — see below |
+| DJI_0036_nadir | 2024-09-25 | (stabilization failed before SIFT) | ✗ Stabilization crash |
+
+### MAX_0094 (July 3, 2024): SIFT failure despite condition-matched orthomosaic
+
+Even with a condition-matched orthomosaic (acquired the same day), SIFT produced
+only **8 RANSAC inliers** for MAX_0094. The resulting homography was degenerate;
+0 of 493 PIV cells fell within the valid domain after quality filtering.
+
+Root cause: the July 3 clip shows near-peak post-failure flow — turbulent whitewater
+dominates essentially the entire frame. The orthomosaic shows the site at the same
+high flow, but turbulent water surfaces have no stable texture for feature matching.
+There are no stable rock, sediment, or structure features shared between the video
+frame and the orthomosaic.
+
+Path forward: manual GCPs from fixed structures visible in both video and map (rock
+ledge edges, concrete fragments), or SfM-derived pixel↔UTM correspondences extracted
+directly from Zach's Metashape project.
+
+### DJI_0024 (May 14, 2025): oblique angle limits PIV domain
+
+DJI_0024 georeferenced successfully but only **66 PIV velocity points** were recovered
+(vs. ~6,000–8,000 for companion clips DJI_0022 and DJI_0023). Inspection of the
+`georeference_debug.png` and PIV output reveals a steep oblique camera angle: most of
+the rectified domain maps to land. Results were not committed — 66 points is
+insufficient for a meaningful velocity field.
+
+### DJI_0036_nadir (September 25, 2024): stabilization failure
+
+The Stabilo video stabilizer found only 5–7 feature inliers per consecutive frame pair
+(vs. a typical ~50–100). The accumulated sub-frame offsets required a crop of −277 × −301 px
+on a 1920 × 1080 frame — a physically impossible crop — causing a non-zero exit code and
+no output file.
+
+Root cause: the high-flow scene has too little stable texture in overlapping frame regions
+for robust homography estimation. The clip has been moved to `data/raw_pending/` pending
+either a bypass of stabilization (run PIV directly on the raw video) or a different
+stabilizer configuration.
+
+Zach is also generating a condition-matched orthomosaic for this clip. Once that is
+available, processing can proceed with `pipeline.stabilize: false` in config.
 
 ---
 
-### MAX_0321 and MAX_0322 (June 2025): georeferencing failure
+### MAX_0321 and MAX_0322 (June 2025): withdrawn from inventory
 
-These clips were the top-ranked candidates in the inventory assessment based on surface texture
-quality. However, SIFT feature matching against the orthophoto produced only **5–6 RANSAC
-inliers** (vs. 177 for MAX_0102), yielding a degenerate homography. As a result, the projected
-frame was a narrow wedge and only ~19 / 7676 PIV cells fell within the valid domain.
+These clips were originally top-ranked candidates based on surface texture quality. However,
+SIFT matching against the November 2024 orthophoto yielded only 5–6 RANSAC inliers (degenerate
+homography); only ~19 / 7,676 PIV cells fell within the valid domain.
 
-**Root cause:** these clips show an almost entirely water-dominated scene — only a thin sliver of
-exposed rock is visible on one edge. The orthophoto was acquired at lower flow when rock ledges,
-banks, and bare sediment were exposed; SIFT relies on stable land-surface features to tie the
-video frame to the map. When the frame is dominated by moving, featureless water, there are no
-stable correspondences to match. Frames 0, 20, 50, 100, 200, and 300 were all tested; all gave
-5–6 inliers, confirming this is a scene composition problem, not a frame selection issue.
+**June 2026 update:** Zach Hilgendorf reviewed the raw clips and withdrew them from the
+processing inventory — they were determined not to be useful for this analysis. They have been
+removed from `data/raw/` and will not be reprocessed.
 
-**Decision:** MAX_0321 and MAX_0322 are skipped pending either (a) manual GCPs placed on the
-visible rock edge, or (b) an alternative georeferencing approach (lab-method known dimensions
-once the scene width is measured).
+### High-flow clips from June–July 2024 (pending orthomosaics)
 
-**Note from field review (Andy Wickert):** MAX_0321 appears to be an oblique shot of the
-right-hand side of the MAX_0102 domain. The viewer notes "I am not sure if there is enough
-information here to analyze it correctly" even with manual GCPs.
-
-### MAX_0015_nadir (August 2024): georeferencing failure
-
-Similar failure to MAX_0321/0322. Despite being a near-nadir clip with rock visible on multiple
-sides of the breach channel, SIFT matched only 9 RANSAC inliers against the orthophoto. The
-resulting homography produced a degenerate projected frame (disconnected fragments, implausible
-geometry, 13/60 PIV cells retained after the noisiness mask). Results discarded.
-
-The August 2024 scene appears water-dominated enough that the rock textures visible to the human
-eye are insufficient for reliable SIFT matching. The orthophoto (likely acquired at even lower
-flow) shows the site in a different state. Pending manual GCPs or a site measurement date closer
-to the orthophoto acquisition.
-
-### High-flow clips from June–July 2024
-
-Clips DJI_0586, DJI_0658, DJI_0672, DJI_0860 were acquired 5–47 days after the dam failure
-during very high and receding flow. The orthophoto (acquired later at low flow) shows the site
-in a very different state: exposed rock, bare sediment, low water. SIFT feature matching may
-struggle because the high-water scene masks the ground-surface features that the orthophoto shows.
-
-These clips are processed on a best-effort basis; the `georeference_debug.png` output should be
-inspected before accepting results. If inlier count is low (<20), results should not be used
-without manual GCP verification.
+Clips DJI_0586 (2024-06-28), DJI_0658 (2024-06-30), and DJI_0672 (2024-06-30) were acquired
+5–7 days after the dam failure during very high and rapidly receding flow. They are held in
+`data/raw_pending/` pending condition-matched orthomosaics from Zach, which have not yet been
+generated for these dates. Once orthomosaics are available, processing will follow the same
+workflow used for the June 2026 batch above.
 
 ### Memory management for long clips
 
@@ -229,23 +242,24 @@ for the velocity field.
 
 ## Clip temporal coverage
 
-Clips selected for LSPIV span the full post-failure hydrograph:
+Clips span the full post-failure hydrograph from June 2024 through March 2025:
 
 | Clip | Date | Flow regime | Status |
 |---|---|---|---|
-| DJI_0586_RAPIDAN_nadir | 2024-06-28 | Very high — ~5 days post-failure | On hold — georeferencing failure |
-| DJI_0658_RAPIDAN_nadir | 2024-06-30 | High / actively receding | On hold — georeferencing failure |
-| DJI_0672_RAPIDAN_nadir | 2024-06-30 | High / actively receding (79 s, stationary) | On hold — georeferencing failure |
-| DJI_0860_RAPIDAN_nadir | 2024-07-09 | Moderate-high | On hold — georeferencing failure |
-| MAX_0015_nadir | 2024-08-06 | Moderate / low | On hold — georeferencing failure |
-| MAX_0102 | 2024-11-15 | Base flow | **Processed** |
-| DJI_0022 | 2025-05-15 | Elevated (spring) | On hold — georeferencing failure |
-| DJI_0023 | 2025-05-15 | Elevated (spring) | On hold — georeferencing failure |
-| DJI_0024 | 2025-05-15 | Elevated (spring) | On hold — georeferencing failure |
-| MAX_0321 | 2025-06-24 | Elevated | On hold — georeferencing failure |
-| MAX_0322 | 2025-06-24 | Elevated | On hold — georeferencing failure |
+| DJI_0586_RAPIDAN_nadir | 2024-06-28 | Very high — ~5 days post-failure | Pending — no orthomosaic yet |
+| DJI_0658_RAPIDAN_nadir | 2024-06-30 | High / actively receding | Pending — no orthomosaic yet |
+| DJI_0672_RAPIDAN_nadir | 2024-06-30 | High / actively receding | Pending — no orthomosaic yet |
+| MAX_0094 | 2024-07-03 | Very high / turbulent whitewater | Failed — SIFT (8 inliers, featureless water surface) |
+| MAX_0015_nadir | 2024-08-06 | Moderate | **Processed** — 11,672 pts |
+| DJI_0036_nadir | 2024-09-25 | Moderate | Failed — stabilization crash |
+| MAX_0102 | 2024-11-15 | Base flow | **Processed** — 1,727 pts |
+| MAX_0177 | 2025-03-03 | High / flood | **Processed** — 1,768 pts |
+| MAX_0178 | 2025-03-03 | High / flood | **Processed** — 1,716 pts |
+| DJI_0022 | 2025-05-14 | Elevated (spring) | **Processed** — 8,021 pts |
+| DJI_0023 | 2025-05-14 | Elevated (spring) | **Processed** — 6,295 pts |
+| DJI_0024 | 2025-05-14 | Elevated (spring) | Not committed — only 66 pts (oblique angle) |
 
-See Processing notes → "SIFT georeferencing: single-orthophoto limitation" for full diagnosis.
+See Processing notes for full diagnosis of failures and pending clips.
 
 ---
 
@@ -267,7 +281,8 @@ orthophoto and digital surface model of the site.
 - All velocity magnitudes in **m/s**
 - `_nadir` clips are trimmed subclips isolating the near-nadir hover segment
   of a longer moving shot
-- Quality filters applied: signal-to-noise ratio > 6.0, cross-correlation > 0.5,
-  speed > 0.02 m/s (removes true-zero noise cells)
+- Quality filters applied: signal-to-noise ratio > 1.0 (OpenPIV peak2mean; scale differs
+  from peak2peak used in older runs — effectively permissive at this threshold),
+  cross-correlation > 0.5, speed > 0.02 m/s (removes true-zero noise cells)
 - Noisiness (land/water) mask: CV < 100% (speed std < mean speed); see Processing notes
 - `*_utm_all.png` figures show all PIV cells before the noisiness mask is applied
