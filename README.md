@@ -4,7 +4,7 @@ Large-Scale Particle Image Velocimetry (LSPIV) surface velocity fields derived
 from drone video of the Blue Earth River at Rapidan Dam (Martin County, MN),
 spanning the June 2024 dam failure through post-failure channel adjustment.
 
-**Collaborators:** Andy Wickert (UMN), Zach Hilgendorf (MSU Mankato)
+**Authors:** Zach Hilgendorf (UW Eau Claire), Andy Wickert (UMN), Phil Larson (MSU Mankato)
 
 ---
 
@@ -115,7 +115,7 @@ cause was a scene-composition mismatch: at higher flow stages, exposed rock and 
 are submerged, and the video frame and orthophoto show the site in visually incompatible
 states — too few stable correspondences for reliable feature matching.
 
-**Resolution (June 2026):** Zach Hilgendorf (MSU Mankato) generated SfM orthomosaics
+**Resolution (June 2026):** Zach Hilgendorf (UW Eau Claire) generated SfM orthomosaics
 from the drone video itself, one per distinct acquisition event. Each orthomosaic
 captures the site at the *same* flow condition as the video clip, providing the shared
 visual features that SIFT requires. This unlocked georeferencing for five additional clips.
@@ -192,7 +192,7 @@ These clips were originally top-ranked candidates based on surface texture quali
 SIFT matching against the November 2024 orthophoto yielded only 5–6 RANSAC inliers (degenerate
 homography); only ~19 / 7,676 PIV cells fell within the valid domain.
 
-**June 2026 update:** Zach Hilgendorf reviewed the raw clips and withdrew them from the
+**June 2026 update:** Zach Hilgendorf (UW Eau Claire) reviewed the raw clips and withdrew them from the
 processing inventory — they were determined not to be useful for this analysis. They have been
 removed from `data/raw/` and will not be reprocessed.
 
@@ -270,7 +270,7 @@ LSPIV processing uses the
 (pyOpenRiverCam / pyORC backend, Snakemake orchestration). Contact Andy Wickert
 for access to the raw video and pipeline configuration.
 
-Georeferencing uses SIFT feature matching against Zach Hilgendorf's SfM
+Georeferencing uses SIFT feature matching against Zach Hilgendorf's (UW Eau Claire) SfM
 orthophoto and digital surface model of the site.
 
 ---
